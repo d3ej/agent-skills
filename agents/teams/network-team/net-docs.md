@@ -66,3 +66,7 @@ sequenceDiagram
     NOC->>Device: show ip bgp summary
     Device-->>NOC: BGP table
 ```
+
+## References
+
+- [network-change-checklist.md](../../../../references/network-change-checklist.md) — MOP structure, pre-change validation gates, rollback requirements, and post-change verification steps to embed in every change document

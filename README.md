@@ -177,6 +177,8 @@ Quick-reference material that skills pull in when needed:
 | [security-checklist.md](references/security-checklist.md) | Pre-commit checks, auth, input validation, headers, CORS, OWASP Top 10 |
 | [performance-checklist.md](references/performance-checklist.md) | Core Web Vitals targets, frontend/backend checklists, measurement commands |
 | [accessibility-checklist.md](references/accessibility-checklist.md) | Keyboard nav, screen readers, visual design, ARIA, testing tools |
+| [network-change-checklist.md](references/network-change-checklist.md) | Pre-change validation, lab/non-prod testing, staging gates, production execution, post-change verification, rollback |
+| [network-automation-patterns.md](references/network-automation-patterns.md) | Nornir, NAPALM, Netmiko, NETCONF/RESTCONF, gNMI, Ansible, secrets management, error handling |
 
 ---
 
