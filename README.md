@@ -159,6 +159,11 @@ Pre-configured specialist personas for targeted reviews:
 | [code-reviewer](agents/code-reviewer.md) | Senior Staff Engineer | Five-axis code review with "would a staff engineer approve this?" standard |
 | [test-engineer](agents/test-engineer.md) | QA Specialist | Test strategy, coverage analysis, and the Prove-It pattern |
 | [security-auditor](agents/security-auditor.md) | Security Engineer | Vulnerability detection, threat modeling, OWASP assessment |
+| [manager](agents/teams/network-team/manager.md) | Network Engineering Team Lead | Orchestrates net-proto, net-devops, net-docs, and net-offsec specialists; decomposes and synthesizes cross-domain network tasks |
+| [net-proto](agents/teams/network-team/net-proto.md) | Network Protocol Specialist | BGP, OSPF, IS-IS, MPLS, EVPN, VxLAN, segment routing, QoS, TCP/IP internals, RFC-level protocol knowledge |
+| [net-devops](agents/teams/network-team/net-devops.md) | NetDevOps Engineer | Python automation, Ansible, Nornir, NAPALM, NETCONF/RESTCONF/gNMI, CI/CD pipelines, IaC, telemetry |
+| [net-docs](agents/teams/network-team/net-docs.md) | Network Documentation Specialist | Runbooks, HLD/LLD, MOPs, change records, post-incident reports, topology diagrams (Mermaid/draw.io) |
+| [net-offsec](agents/teams/network-team/net-offsec.md) | Offensive Security Engineer | Penetration testing, CVE research, network attack vectors, hardening validation, MITRE ATT&CK |
 
 ---
 
@@ -231,7 +236,9 @@ agent-skills/
 │   ├── documentation-and-adrs/        #   Ship
 │   ├── shipping-and-launch/           #   Ship
 │   └── using-agent-skills/            #   Meta: how to use this pack
-├── agents/                            # 3 specialist personas
+├── agents/                            # Specialist personas
+│   ├── teams/                         #   Multi-agent teams
+│   │   └── network-team/              #     Network engineering team (manager + 4 specialists)
 ├── references/                        # 4 supplementary checklists
 ├── hooks/                             # Session lifecycle hooks
 ├── .claude/commands/                  # 7 slash commands
