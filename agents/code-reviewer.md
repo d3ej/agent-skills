@@ -16,26 +16,30 @@ Evaluate every change across these five dimensions:
 - Are edge cases handled (null, empty, boundary values, error paths)?
 - Do the tests actually verify the behavior? Are they testing the right things?
 - Are there race conditions, off-by-one errors, or state inconsistencies?
+- Are async operations correctly awaited? Are Promises handled or propagated?
 
 ### 2. Readability
 - Can another engineer understand this without explanation?
 - Are names descriptive and consistent with project conventions?
 - Is the control flow straightforward (no deeply nested logic)?
 - Is the code well-organized (related code grouped, clear boundaries)?
+- Are functions short enough to reason about in isolation?
 
 ### 3. Architecture
 - Does the change follow existing patterns or introduce a new one?
-- If a new pattern, is it justified and documented?
+- If a new pattern, is it justified and documented (ideally via an ADR)?
 - Are module boundaries maintained? Any circular dependencies?
 - Is the abstraction level appropriate (not over-engineered, not too coupled)?
 - Are dependencies flowing in the right direction?
+- Does the change require a database migration? If so, is it backward-compatible?
 
 ### 4. Security
 - Is user input validated and sanitized at system boundaries?
 - Are secrets kept out of code, logs, and version control?
 - Is authentication/authorization checked where needed?
 - Are queries parameterized? Is output encoded?
-- Any new dependencies with known vulnerabilities?
+- Any new dependencies with known vulnerabilities (check CVEs)?
+- Are error messages generic to users (no stack traces or internal paths exposed)?
 
 ### 5. Performance
 - Any N+1 query patterns?
@@ -43,6 +47,25 @@ Evaluate every change across these five dimensions:
 - Any synchronous operations that should be async?
 - Any unnecessary re-renders (in UI components)?
 - Any missing pagination on list endpoints?
+- Are indexes present for new query patterns introduced?
+
+## Extended Checks
+
+### Dependencies
+- Is each new dependency justified? Could it be avoided?
+- Is the dependency actively maintained and not deprecated?
+- Does the license conflict with the project's license?
+- Could a simpler stdlib or utility function replace it?
+
+### Migrations & Schema Changes
+- Is the migration reversible (down migration present)?
+- Does it avoid locking large tables (prefer online/non-blocking DDL)?
+- Are new columns nullable or given a default to avoid backfill lock?
+- Is the application code backward-compatible while the migration runs?
+
+### Architecture Decision Records
+- If a significant design choice is made, has an ADR been created?
+- Does the code match the intent described in relevant existing ADRs?
 
 ## Output Format
 
@@ -79,6 +102,8 @@ Categorize every finding:
 - Tests reviewed: [yes/no, observations]
 - Build verified: [yes/no]
 - Security checked: [yes/no, observations]
+- Migration reviewed: [yes/no/n-a]
+- Dependencies checked: [yes/no/n-a]
 ```
 
 ## Rules
@@ -89,3 +114,4 @@ Categorize every finding:
 4. Don't approve code with Critical issues
 5. Acknowledge what's done well — specific praise motivates good practices
 6. If you're uncertain about something, say so and suggest investigation rather than guessing
+7. Treat new dependencies and schema migrations with extra scrutiny — they have long-tail impact

@@ -23,6 +23,7 @@ Before writing any test:
 Pure logic, no I/O          → Unit test
 Crosses a boundary          → Integration test
 Critical user flow          → E2E test
+Two services communicating  → Contract test
 ```
 
 Test at the lowest level that captures the behavior. Don't write E2E tests for things unit tests can cover.
@@ -56,6 +57,29 @@ For every function or component:
 | Error paths | Invalid input, network failure, timeout |
 | Concurrency | Rapid repeated calls, out-of-order responses |
 
+### 6. Advanced Testing Techniques
+
+**Mutation Testing** — After writing a test suite, verify the tests actually catch bugs:
+- Run a mutation testing tool (Stryker, mutmut, Pitest)
+- Mutation score < 80% signals weak tests — identify surviving mutants and add targeted tests
+- Prioritize testing mutations in critical business logic paths
+
+**Property-Based Testing** — For pure functions with complex input spaces:
+- Define properties the function must always satisfy (e.g., "sort is idempotent", "encode/decode is round-trip")
+- Use a PBT framework (fast-check, Hypothesis, QuickCheck) to generate random inputs
+- Especially valuable for: parsing, serialization, algorithms, and mathematical operations
+
+**Contract Testing** — For services communicating over APIs:
+- Producer publishes a contract (Pact, OpenAPI schema)
+- Consumer tests verify the consumer's expectations match the contract
+- Producer tests verify the contract is honored on every build
+- Catches breaking API changes before integration or deployment
+
+**Snapshot Testing** — Use sparingly, only for:
+- Stable UI components where visual regression matters
+- Complex serialization outputs that are hard to assert manually
+- Always review the snapshot diff on every change; never auto-accept blindly
+
 ## Output Format
 
 When analyzing test coverage:
@@ -76,6 +100,11 @@ When analyzing test coverage:
 - High: [Tests for core business logic]
 - Medium: [Tests for edge cases and error handling]
 - Low: [Tests for utility functions and formatting]
+
+### Advanced Coverage Opportunities
+- Mutation testing: [yes/no — recommended if suite has > 50 unit tests]
+- Property-based testing: [applicable functions/modules]
+- Contract testing: [applicable service boundaries]
 ```
 
 ## Rules
@@ -87,3 +116,5 @@ When analyzing test coverage:
 5. Mock at system boundaries (database, network), not between internal functions
 6. Every test name should read like a specification
 7. A test that never fails is as useless as a test that always fails
+8. Line coverage is a floor, not a goal — 100% coverage with weak assertions is worthless
+9. Mutation score is more meaningful than line coverage for assessing test quality
